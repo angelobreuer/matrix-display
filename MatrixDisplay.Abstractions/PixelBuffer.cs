@@ -12,7 +12,7 @@ public sealed class PixelBuffer
 
     private const uint CommitFlag = 1 << 0;
 
-    private static readonly string[] _allowedPictureFormats = new string[] { ".png", ".jpg",".jpeg",".bmp", };
+    private static readonly string[] _allowedPictureFormats = new string[] { ".png", ".jpg", ".jpeg", ".bmp", };
     private static PixelBuffer? _pixelBuffer;
 
     private readonly MemoryMappedViewAccessor _memoryMappedViewAccessor;
@@ -131,11 +131,24 @@ public sealed class PixelBuffer
 
         try
         {
-            Span<Color> span = new Span<Color>(
-                pointer: (void*)bitmapData.Scan0,
-                length: Width * Height);
+            var sourcePointer = bitmapData.Scan0;
 
-            span.CopyTo(Data);
+            for (var yOffset = 0; yOffset < Height; yOffset++)
+            {
+                var source = new Span<Color>(
+                    pointer: (void*)sourcePointer,
+                    length: Width);
+
+                var destination = Data[(yOffset * Width)..];
+
+                for (var xOffset = 0; xOffset < Width; xOffset++)
+                {
+                    var (r, g, b) = source[xOffset];
+                    destination[xOffset] = new Color(b, g, r);
+                }
+
+                sourcePointer += bitmapData.Stride;
+            }
         }
         finally
         {
@@ -148,7 +161,7 @@ public sealed class PixelBuffer
     public void Picture(string name)
     {
         var file = _allowedPictureFormats
-            .Select(x => $"{name}{x}")
+            .Select(x => Path.Combine("data", $"{name}{x}"))
             .FirstOrDefault(File.Exists);
 
         if (file is null)
