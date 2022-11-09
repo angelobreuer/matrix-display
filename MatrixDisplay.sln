@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.ColorCir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.Clock", "apps\MatrixDisplay.Apps.Clock\MatrixDisplay.Apps.Clock.csproj", "{CDD01666-5699-4EA3-B423-8FA17C8D09E6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.Firework", "apps\MatrixDisplay.Apps.Firework\MatrixDisplay.Apps.Firework.csproj", "{9C21474F-D790-4800-AE00-A6BDD6B21819}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{CDD01666-5699-4EA3-B423-8FA17C8D09E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDD01666-5699-4EA3-B423-8FA17C8D09E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDD01666-5699-4EA3-B423-8FA17C8D09E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C21474F-D790-4800-AE00-A6BDD6B21819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C21474F-D790-4800-AE00-A6BDD6B21819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C21474F-D790-4800-AE00-A6BDD6B21819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C21474F-D790-4800-AE00-A6BDD6B21819}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{169C72E6-ABE7-40E6-854E-BC6F1C2E2838} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 		{CDD01666-5699-4EA3-B423-8FA17C8D09E6} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
+		{9C21474F-D790-4800-AE00-A6BDD6B21819} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {336CDF1D-B6B6-4941-9D8C-5F1E04C5C51F}
