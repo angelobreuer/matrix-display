@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Emulator", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Board", "MatrixDisplay.Board\MatrixDisplay.Board.csproj", "{FF01EA32-5F85-4A16-948A-9AFFA94E81AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.ColorGenerator", "MatrixDisplay.ColorGenerator\MatrixDisplay.ColorGenerator.csproj", "{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.ColorGenerator", "MatrixDisplay.ColorGenerator\MatrixDisplay.ColorGenerator.csproj", "{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{391ACB75-5F3D-4C48-AD34-11D22707DAA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.ColorCircle", "apps\MatrixDisplay.Apps.ColorCircle\MatrixDisplay.Apps.ColorCircle.csproj", "{169C72E6-ABE7-40E6-854E-BC6F1C2E2838}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{169C72E6-ABE7-40E6-854E-BC6F1C2E2838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{169C72E6-ABE7-40E6-854E-BC6F1C2E2838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{169C72E6-ABE7-40E6-854E-BC6F1C2E2838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{169C72E6-ABE7-40E6-854E-BC6F1C2E2838}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{169C72E6-ABE7-40E6-854E-BC6F1C2E2838} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {336CDF1D-B6B6-4941-9D8C-5F1E04C5C51F}
