@@ -6,6 +6,11 @@ public readonly record struct PixelBufferRowAccessor(PixelBuffer Buffer)
     {
         set
         {
+            if (offset >= Buffer.Height)
+            {
+                return;
+            }
+
             var startPosition = offset * Buffer.Width;
             var endPosition = (offset + 1) * Buffer.Height;
 

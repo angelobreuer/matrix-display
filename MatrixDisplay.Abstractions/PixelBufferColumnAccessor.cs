@@ -6,6 +6,11 @@ public readonly record struct PixelBufferColumnAccessor(PixelBuffer Buffer)
     {
         set
         {
+            if (offset >= Buffer.Width)
+            {
+                return ;
+            }
+
             var position = offset;
             var span = Buffer.Data;
 

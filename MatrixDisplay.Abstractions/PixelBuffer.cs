@@ -54,10 +54,23 @@ public sealed class PixelBuffer
 
     public Color this[int x, int y]
     {
-        get => Data[(y * Width) + x];
+        get
+        {
+            if (x >= Width || x < 0 || y >= Height || y < 0)
+            {
+                return default;
+            }
+
+            return Data[(y * Width) + x];
+        }
 
         set
         {
+            if (x >= Width || x < 0 || y >= Height || y < 0)
+            {
+                return;
+            }
+
             Data[(y * Width) + x] = value;
             MarkDirty();
         }
@@ -134,5 +147,11 @@ public sealed class PixelBuffer
 
         using var bitmap = new Bitmap(file);
         DrawImage(bitmap);
+    }
+
+    public void Clear()
+    {
+        Data.Clear();
+        MarkDirty();
     }
 }
