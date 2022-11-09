@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33103.201
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay", "MatrixDisplay\MatrixDisplay.csproj", "{87A2D6AA-7CAE-4263-9326-7FF0466EB096}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Abstractions", "MatrixDisplay.Abstractions\MatrixDisplay.Abstractions.csproj", "{139148DF-6320-4977-AAD2-E9CA91B6FA17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Test", "MatrixDisplay.Test\MatrixDisplay.Test.csproj", "{D350F58F-CBEA-44CC-97B3-8F0DA339DEA1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Emulator", "MatrixDisplay.Emulator\MatrixDisplay.Emulator.csproj", "{3B582B20-2728-4FB0-A4D7-E14DB0EDBF7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Board", "MatrixDisplay.Board\MatrixDisplay.Board.csproj", "{FF01EA32-5F85-4A16-948A-9AFFA94E81AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.ColorGenerator", "MatrixDisplay.ColorGenerator\MatrixDisplay.ColorGenerator.csproj", "{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87A2D6AA-7CAE-4263-9326-7FF0466EB096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A2D6AA-7CAE-4263-9326-7FF0466EB096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A2D6AA-7CAE-4263-9326-7FF0466EB096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A2D6AA-7CAE-4263-9326-7FF0466EB096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{139148DF-6320-4977-AAD2-E9CA91B6FA17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{139148DF-6320-4977-AAD2-E9CA91B6FA17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{139148DF-6320-4977-AAD2-E9CA91B6FA17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{139148DF-6320-4977-AAD2-E9CA91B6FA17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D350F58F-CBEA-44CC-97B3-8F0DA339DEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D350F58F-CBEA-44CC-97B3-8F0DA339DEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D350F58F-CBEA-44CC-97B3-8F0DA339DEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D350F58F-CBEA-44CC-97B3-8F0DA339DEA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B582B20-2728-4FB0-A4D7-E14DB0EDBF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B582B20-2728-4FB0-A4D7-E14DB0EDBF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B582B20-2728-4FB0-A4D7-E14DB0EDBF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B582B20-2728-4FB0-A4D7-E14DB0EDBF7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF01EA32-5F85-4A16-948A-9AFFA94E81AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF01EA32-5F85-4A16-948A-9AFFA94E81AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF01EA32-5F85-4A16-948A-9AFFA94E81AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF01EA32-5F85-4A16-948A-9AFFA94E81AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9F3D36-7ECB-4A8E-87E2-96CB1776FDD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {336CDF1D-B6B6-4941-9D8C-5F1E04C5C51F}
+	EndGlobalSection
+EndGlobal
