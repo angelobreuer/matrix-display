@@ -36,7 +36,7 @@ public readonly record struct PixelBufferRowAccessor(PixelBuffer Buffer)
         }
 
         var startPosition = offset * Buffer.Width;
-        var endPosition = (offset + 1) * Buffer.Height;
+        var endPosition = (offset + 1) * Buffer.Width;
 
         Buffer.Data[startPosition..endPosition].Fill(value);
     }
