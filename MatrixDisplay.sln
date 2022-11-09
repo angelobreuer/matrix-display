@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.PingPong
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.Snake", "apps\MatrixDisplay.Apps.Snake\MatrixDisplay.Apps.Snake.csproj", "{849751FA-256B-4B7B-83B7-E68655277710}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.SuperMario", "apps\MatrixDisplay.Apps.SuperMario\MatrixDisplay.Apps.SuperMario.csproj", "{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{849751FA-256B-4B7B-83B7-E68655277710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{849751FA-256B-4B7B-83B7-E68655277710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{849751FA-256B-4B7B-83B7-E68655277710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +93,7 @@ Global
 		{9C21474F-D790-4800-AE00-A6BDD6B21819} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 		{F018202B-A29B-4C26-8954-91BF4C3D549F} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 		{849751FA-256B-4B7B-83B7-E68655277710} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
+		{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {336CDF1D-B6B6-4941-9D8C-5F1E04C5C51F}
