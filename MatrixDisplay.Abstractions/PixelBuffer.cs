@@ -107,6 +107,17 @@ public sealed class PixelBuffer
         }
     }
 
+    public Memory<Color> Save()
+    {
+        return Data.ToArray();
+    }
+
+    public void Restore(ReadOnlyMemory<Color> buffer)
+    {
+        buffer.Span.CopyTo(Data);
+        MarkDirty();
+    }
+
     public bool AutoCommit { get; set; } = true;
 
     private nint GetPointer() => _memoryMappedViewAccessor.SafeMemoryMappedViewHandle.DangerousGetHandle() + 8; // TODO: protect
