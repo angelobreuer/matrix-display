@@ -46,4 +46,12 @@
     </None>
   </ItemGroup>
 
+	<Target Name="_CopyDist" AfterTargets="CopyNativeBinary">
+
+		<Copy
+			SourceFiles="$(SolutionDir)/MatrixDisplay/bin/Release/net7.0-windows/publish/win-x64/$(AssemblyName).exe"
+			DestinationFiles="$(SolutionDir)/dist/$(AssemblyName).exe" />
+
+	</Target>
+
 </Project>

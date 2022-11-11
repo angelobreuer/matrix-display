@@ -364,3 +364,5 @@ FodyWeavers.xsd
 /src/notifications/src/Snox.PushNotificationService/appsettings.json
 /infer-out
 *.infersharpconfig
+
+dist

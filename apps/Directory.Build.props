@@ -1,0 +1,15 @@
+<Project>
+
+	<PropertyGroup>
+		<PublishAot>true</PublishAot>
+	</PropertyGroup>
+
+	<Target Name="_CopyDist" AfterTargets="CopyNativeBinary">
+
+		<Copy
+			SourceFiles="$(PublishDir)/$(AssemblyName).exe"
+			DestinationFiles="$(SolutionDir)/dist/$(AssemblyName).exe" />
+
+	</Target>
+
+</Project>
