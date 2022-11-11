@@ -25,13 +25,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.Firework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.PingPong", "apps\MatrixDisplay.Apps.PingPong\MatrixDisplay.Apps.PingPong.csproj", "{F018202B-A29B-4C26-8954-91BF4C3D549F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.Snake", "apps\MatrixDisplay.Apps.Snake\MatrixDisplay.Apps.Snake.csproj", "{849751FA-256B-4B7B-83B7-E68655277710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.Snake", "apps\MatrixDisplay.Apps.Snake\MatrixDisplay.Apps.Snake.csproj", "{849751FA-256B-4B7B-83B7-E68655277710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.SuperMario", "apps\MatrixDisplay.Apps.SuperMario\MatrixDisplay.Apps.SuperMario.csproj", "{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.SuperMario", "apps\MatrixDisplay.Apps.SuperMario\MatrixDisplay.Apps.SuperMario.csproj", "{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.TicTacToe", "apps\MatrixDisplay.Apps.TicTacToe\MatrixDisplay.Apps.TicTacToe.csproj", "{18A079B6-356A-4F14-94F2-9805BC1E1324}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.TicTacToe", "apps\MatrixDisplay.Apps.TicTacToe\MatrixDisplay.Apps.TicTacToe.csproj", "{18A079B6-356A-4F14-94F2-9805BC1E1324}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.Tetris", "src\MatrixDisplay.Apps.Tetris\MatrixDisplay.Apps.Tetris.csproj", "{93CFC8B1-D2C9-40ED-B70A-6D4D5E83BFC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.Tetris", "src\MatrixDisplay.Apps.Tetris\MatrixDisplay.Apps.Tetris.csproj", "{93CFC8B1-D2C9-40ED-B70A-6D4D5E83BFC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.ScrollingText", "apps\MatrixDisplay.Apps.ScrollingText\MatrixDisplay.Apps.ScrollingText.csproj", "{7C882D39-1E40-4498-BA1A-1D8FB28F5A48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{93CFC8B1-D2C9-40ED-B70A-6D4D5E83BFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93CFC8B1-D2C9-40ED-B70A-6D4D5E83BFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93CFC8B1-D2C9-40ED-B70A-6D4D5E83BFC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C882D39-1E40-4498-BA1A-1D8FB28F5A48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C882D39-1E40-4498-BA1A-1D8FB28F5A48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C882D39-1E40-4498-BA1A-1D8FB28F5A48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C882D39-1E40-4498-BA1A-1D8FB28F5A48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{1E9DD8C4-C56E-4444-B56E-003AEFF7C31F} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 		{18A079B6-356A-4F14-94F2-9805BC1E1324} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 		{93CFC8B1-D2C9-40ED-B70A-6D4D5E83BFC1} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
+		{7C882D39-1E40-4498-BA1A-1D8FB28F5A48} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {336CDF1D-B6B6-4941-9D8C-5F1E04C5C51F}
