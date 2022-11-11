@@ -1,10 +1,10 @@
-﻿using MatrixDisplay;
+﻿using System.Net;
+using System.Text.Json;
+using System.Windows.Forms;
+using MatrixDisplay;
 using MatrixDisplay.Board;
 using MatrixDisplay.Emulator;
 using Microsoft.Extensions.Options;
-using System.Net;
-using System.Text.Json;
-using System.Windows.Forms;
 
 var optionsContent = File.ReadAllText("appsettings.json");
 var options = JsonSerializer.Deserialize(optionsContent, AppSerializerContext.Default.DisplayOptions)!;
@@ -20,5 +20,5 @@ if (options.Endpoint is null)
 }
 else
 {
-    engine.Run(new BoardClient(IPEndPoint.Parse(options.Endpoint)));
+    engine.Run(new BoardClient(IPEndPoint.Parse(options.Endpoint), options.Width, options.Height));
 }

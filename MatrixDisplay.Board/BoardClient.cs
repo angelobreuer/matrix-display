@@ -1,21 +1,19 @@
 ﻿namespace MatrixDisplay.Board;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Buffers;
+using System.Net;
+using System.Net.Sockets;
 
 public sealed class BoardClient : IDisplayController
 {
     private readonly Color[] _colorTable;
     private readonly byte[] _dataTable;
     private readonly Socket _socket;
+    private readonly int _width;
+    private readonly int _height;
 
-    public BoardClient(IPEndPoint endPoint)
+    public BoardClient(IPEndPoint endPoint, int width, int height)
     {
         ArgumentNullException.ThrowIfNull(endPoint);
 
@@ -24,6 +22,8 @@ public sealed class BoardClient : IDisplayController
 
         _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         _socket.Connect(endPoint);
+        _width = width;
+        _height = height;
     }
 
     public void Update(ReadOnlySpan<Color> buffer)
@@ -32,7 +32,9 @@ public sealed class BoardClient : IDisplayController
 
         for (var index = 0; index < buffer.Length; index++)
         {
-            var color = buffer[index];
+            var (row, column) = Math.DivRem(index, _width);
+
+            var color = buffer[(_width * (_height - 1 - row)) + (_width - 1 - column)];
             var tableIndex = colors.IndexOf(color);
 
             if (tableIndex is -1)
@@ -45,8 +47,8 @@ public sealed class BoardClient : IDisplayController
             _dataTable[index] = (byte)tableIndex;
         }
 
-        var data = new ReadOnlySpan<byte>(_dataTable);
-        var payload = new PixelPayload { ColorTable =  colors, Data = data, };
+        var data = new ReadOnlySpan<byte>(_dataTable, 0, buffer.Length);
+        var payload = new PixelPayload { ColorTable = colors, Data = data, };
 
         var arrayBufferWriter = new ArrayBufferWriter<byte>();
         payload.WriteBytes(arrayBufferWriter);
