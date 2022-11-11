@@ -2,10 +2,12 @@
 
 using System;
 using System.Buffers.Binary;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO.MemoryMappedFiles;
 
+[SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
 public sealed class PixelBuffer
 {
     public const string DefaultMemoryMappedFileName = "md-mmf1";
@@ -170,6 +172,40 @@ public sealed class PixelBuffer
         }
 
         using var bitmap = new Bitmap(file);
+        DrawImage(bitmap);
+    }
+
+    public Size MeasureText(Font font, string text)
+    {
+        ArgumentNullException.ThrowIfNull(font);
+        ArgumentNullException.ThrowIfNull(text);
+
+        using var bitmap = new Bitmap(Width, Height);
+        using var graphics = Graphics.FromImage(bitmap);
+
+        var size = graphics.MeasureString(text, font);
+        return new Size((int)size.Width, (int)size.Height);
+    }
+
+    public void DrawText(Font font, string text, int offset, Color? color = null)
+    {
+        ArgumentNullException.ThrowIfNull(font);
+        ArgumentNullException.ThrowIfNull(text);
+
+        using var solidBrush = new SolidBrush(color is null
+            ? System.Drawing.Color.White
+            : System.Drawing.Color.FromArgb(color.Value.R, color.Value.G, color.Value.B));
+
+        using var bitmap = new Bitmap(Width, Height);
+
+        using (var graphics = Graphics.FromImage(bitmap))
+        {
+            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
+
+            graphics.DrawString(text, font, solidBrush, new PointF(offset, -3));
+        }
+
         DrawImage(bitmap);
     }
 
