@@ -49,6 +49,9 @@ SelfTest(Color.White);
 
 while (true)
 {
+    RunEffect<SimpleShiftingPatternEffect>();
+    RunEffect<WhiteFlickerEffect>();
+    RunEffect<HueShiftEffect>();
     RunEffect<ChristmasLightEffect>();
     RunEffect<StarlightEffect>();
     RunEffect<BlazeEffect>();
