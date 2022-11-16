@@ -2,10 +2,12 @@
 
 using System;
 using System.Buffers.Binary;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO.MemoryMappedFiles;
+using System.Runtime.Intrinsics.X86;
 
 [SuppressMessage("Interoperability", "CA1416:Validate platform compatibility")]
 public sealed class PixelBuffer
@@ -94,7 +96,10 @@ public sealed class PixelBuffer
 
     public void Commit()
     {
-        PerformCommit();
+        if (Interlocked.Exchange(ref _dirtyState, 0) is 1)
+        {
+            PerformCommit();
+        }
     }
 
     private unsafe void PerformCommit()
