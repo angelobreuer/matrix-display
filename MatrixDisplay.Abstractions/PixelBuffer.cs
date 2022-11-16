@@ -48,6 +48,9 @@ public sealed class PixelBuffer
 
         Rows = new(this);
         Columns = new(this);
+
+        Data.Clear();
+        Commit();
     }
 
     public int Width { get; }
