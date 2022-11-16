@@ -8,7 +8,7 @@ var buffer = PixelBuffer.Instance;
 const int FramesPerSecond = 60;
 const double TimeScale = 50D;
 
-var file = args.Length is 0 ? "images.pak" : "";
+var file = args.Length is 0 ? "images.pak" : args[0];
 using var fileStream = new FileStream(file, FileMode.Open);
 using var gzipStream = new GZipStream(fileStream, CompressionMode.Decompress);
 
