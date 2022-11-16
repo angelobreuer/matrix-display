@@ -26,30 +26,23 @@ internal sealed class MatrixPanel : Panel, IDisplayController
             _resized = false;
         }
 
-        var num = Math.Min(eventArgs.ClipRectangle.Width, eventArgs.ClipRectangle.Height) * (float)(eventArgs.ClipRectangle.Width / eventArgs.ClipRectangle.Height) / 13f;
-        var x = (eventArgs.ClipRectangle.Width - (_width * num)) / 2f;
-        float num2 = eventArgs.ClipRectangle.Height;
+        var ratio = Math.Min(
+            val1: eventArgs.ClipRectangle.Width,
+            val2: eventArgs.ClipRectangle.Height) * (float)(eventArgs.ClipRectangle.Width / eventArgs.ClipRectangle.Height) / _width;
 
-        var pointF = new PointF(x, (num2 - (_buffer.Length / _width * num)) / 2f);
-        var num3 = 0;
+        var width = (eventArgs.ClipRectangle.Width - (_width * ratio)) / 2f;
+        var height = (float)eventArgs.ClipRectangle.Height;
 
-        while (true)
+        var pointF = new PointF(width, (height - (_buffer.Length / _width * ratio)) / 2f);
+
+        for (var y = 0; y < _buffer.Length / _width; y++)
         {
-            var num4 = num3;
-
-            if (num4 >= _buffer.Length / _width)
+            for (var x = 0; x < _width; x++)
             {
-                break;
-            }
-
-            for (var i = 0; i < _width; i++)
-            {
-                var color = _buffer[(num3 * _width) + i];
+                var color = _buffer[(y * _width) + x];
                 using var brush = new SolidBrush(SystemDrawingColor.FromArgb(color.R, color.G, color.B));
-                eventArgs.Graphics.FillRectangle(brush, pointF.X + (i * num), pointF.Y + (num3 * num), num, num);
+                eventArgs.Graphics.FillRectangle(brush, pointF.X + (x * ratio), pointF.Y + (y * ratio), ratio, ratio);
             }
-
-            num3++;
         }
     }
 
@@ -66,6 +59,6 @@ internal sealed class MatrixPanel : Panel, IDisplayController
     {
         buffer.CopyTo(_buffer);
 
-        Invoke(() => Invalidate());
+        Invoke(Invalidate);
     }
 }
