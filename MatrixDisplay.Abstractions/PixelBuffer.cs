@@ -117,6 +117,25 @@ public sealed class PixelBuffer
         return Data.ToArray();
     }
 
+    public void Fade(byte fade)
+    {
+        Debug.Assert(Sse2.IsSupported);
+
+        var data = Data;
+
+        for (var index = 0; index < data.Length; index++)
+        {
+            ref var value = ref data[index];
+
+            value = new Color(
+                R: (byte)Math.Max(0, value.R - fade),
+                G: (byte)Math.Max(0, value.G - fade),
+                B: (byte)Math.Max(0, value.B - fade));
+        }
+
+        MarkDirty();
+    }
+
     public void Restore(ReadOnlyMemory<Color> buffer)
     {
         buffer.Span.CopyTo(Data);
