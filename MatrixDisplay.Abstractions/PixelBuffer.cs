@@ -33,7 +33,6 @@ public sealed class PixelBuffer
         // - (width * height * 3) bytes for pixel data
         ArgumentException.ThrowIfNullOrEmpty(memoryMappedFileName);
 
-        Thread.Sleep(1000); // TODO
         var memoryMappedFile = MemoryMappedFile.OpenExisting(memoryMappedFileName, MemoryMappedFileRights.FullControl);
 
         // Read Header
