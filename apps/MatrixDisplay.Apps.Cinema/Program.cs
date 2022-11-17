@@ -6,7 +6,7 @@ using MatrixDisplay;
 var buffer = PixelBuffer.Instance;
 
 const int FramesPerSecond = 60;
-const double TimeScale = 50D;
+const double TimeScale = 5D;
 
 var file = args.Length is 0 ? "images.pak" : args[0];
 using var fileStream = new FileStream(file, FileMode.Open);
