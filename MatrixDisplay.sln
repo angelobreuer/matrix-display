@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatrixDisplay.Apps.Cinema.P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.BKLogo", "apps\MatrixDisplay.Apps.BKLogo\MatrixDisplay.Apps.BKLogo.csproj", "{09DB8292-4A0D-4660-A586-0E27A91D51FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixDisplay.Apps.Picture", "apps\MatrixDisplay.Apps.Picture\MatrixDisplay.Apps.Picture.csproj", "{8FF1BBAC-655F-4BB6-8C10-631062773D55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{09DB8292-4A0D-4660-A586-0E27A91D51FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09DB8292-4A0D-4660-A586-0E27A91D51FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09DB8292-4A0D-4660-A586-0E27A91D51FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FF1BBAC-655F-4BB6-8C10-631062773D55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FF1BBAC-655F-4BB6-8C10-631062773D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FF1BBAC-655F-4BB6-8C10-631062773D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FF1BBAC-655F-4BB6-8C10-631062773D55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,6 +161,7 @@ Global
 		{BF7D5241-7E7C-4B0C-84BE-58DC8852F1E3} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 		{254C7F65-A3C3-4E8F-9E09-4B2C2C15E35B} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 		{09DB8292-4A0D-4660-A586-0E27A91D51FC} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
+		{8FF1BBAC-655F-4BB6-8C10-631062773D55} = {391ACB75-5F3D-4C48-AD34-11D22707DAA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {336CDF1D-B6B6-4941-9D8C-5F1E04C5C51F}

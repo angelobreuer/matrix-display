@@ -186,15 +186,18 @@ public sealed class PixelBuffer
         MarkDirty();
     }
 
-    public void Picture(string name)
+    public void Picture(string file)
     {
-        var file = _allowedPictureFormats
-            .Select(x => Path.Combine("data", $"{name}{x}"))
-            .FirstOrDefault(File.Exists);
-
-        if (file is null)
+        if (!File.Exists(file))
         {
-            throw new FileNotFoundException(name);
+            file = _allowedPictureFormats
+                .Select(x => Path.Combine("data", $"{file}{x}"))
+                .FirstOrDefault(File.Exists)!;
+
+            if (file is null)
+            {
+                throw new FileNotFoundException(file);
+            }
         }
 
         using var bitmap = new Bitmap(file);
