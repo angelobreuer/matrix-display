@@ -6,7 +6,6 @@ using MatrixDisplay;
 
 internal sealed class BlazeEffect : IEffect
 {
-
     public void Run(PixelBuffer buffer, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -15,7 +14,7 @@ internal sealed class BlazeEffect : IEffect
         var blazes = new List<Blaze>();
 
         var spawnTimer = new DeltaTimer(TimeSpan.FromSeconds(0.2D));
-        var moveTimer = new DeltaTimer(TimeSpan.FromSeconds(0.005D));
+        var moveTimer = new DeltaTimer(TimeSpan.FromSeconds(0.01D));
 
         var spinWait = new SpinWait();
 

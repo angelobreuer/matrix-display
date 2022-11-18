@@ -12,7 +12,7 @@ internal abstract class ShiftingPatternEffectBase : IEffect
         ArgumentNullException.ThrowIfNull(buffer);
 
         var pattern = BuildPattern(buffer.Width);
-        var deltaTimer = new DeltaTimer(TimeSpan.FromSeconds(0.01D));
+        var deltaTimer = new DeltaTimer(TimeSpan.FromSeconds(0.02D));
         var spinWait = new SpinWait();
         var shift = 0;
 
