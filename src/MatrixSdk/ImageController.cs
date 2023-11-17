@@ -1,6 +1,8 @@
 ﻿namespace MatrixSdk;
 
+using System;
 using System.Buffers.Binary;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 
@@ -17,8 +19,10 @@ public sealed class ImageController : IDisposable
         _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
     }
 
-    public void Send(ReadOnlySpan<Color> colors)
+    public void Send(ReadOnlySpan<Color> colors, ImageBounds bounds)
     {
+        Debug.Assert(bounds.Width * bounds.Height == colors.Length);
+
         var socket = _socket;
         ObjectDisposedException.ThrowIf(socket is null, this);
 
@@ -47,14 +51,26 @@ public sealed class ImageController : IDisposable
             destination: sendBuffer[6..],
             value: Interlocked.Increment(ref _sequenceNumber));
 
-        for (var index = 0; index < colors.Length; index++)
-        {
-            var color = colors[index];
-            var sendIndex = (index * 3) + 14;
+#pragma warning disable CS8321
+        int NoTransform(int x, int y) => (y * bounds.Width) + x;
+        int HorizontalMirror(int x, int y) => (y * bounds.Width) + (bounds.Width - x - 1);
+        int VerticalMirror(int x, int y) => ((bounds.Width - y - 1) * bounds.Width) + x;
+        int HorizontalVerticalMirror(int x, int y) => ((bounds.Width - y - 1) * bounds.Width) + (bounds.Width - x - 1);
+#pragma warning restore CS8321
 
-            sendBuffer[sendIndex] = color.R;
-            sendBuffer[sendIndex + 1] = color.G;
-            sendBuffer[sendIndex + 2] = color.B;
+        var transform = HorizontalMirror;
+        var sendIndex = 14;
+
+        for (var y = 0; y < bounds.Height; y++)
+        {
+            for (var x = 0; x < bounds.Width; x++)
+            {
+                var color = colors[transform(x, y)];
+
+                sendBuffer[sendIndex++] = color.R;
+                sendBuffer[sendIndex++] = color.G;
+                sendBuffer[sendIndex++] = color.B;
+            }
         }
 
         socket.SendTo(sendBuffer, SocketFlags.None, _destinationEndPoint);

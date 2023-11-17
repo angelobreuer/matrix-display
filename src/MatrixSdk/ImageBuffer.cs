@@ -93,7 +93,7 @@ public sealed class ImageBuffer
 
     public void Commit()
     {
-        _controller.Send(Colors);
+        _controller.Send(Colors, Bounds);
         _handle.IncrementVersion();
     }
 
