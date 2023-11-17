@@ -1,7 +1,6 @@
 ﻿namespace MatrixSdk;
 
 using System.Diagnostics;
-using System.Net;
 using SkiaSharp;
 
 public sealed class ImageBuffer
@@ -11,28 +10,10 @@ public sealed class ImageBuffer
 
     public static ImageBuffer Create()
     {
-        var endpoint = Environment.GetEnvironmentVariable("MATRIX_SDK_ENDPOINT");
-        var bounds = Environment.GetEnvironmentVariable("MATRIX_SDK_BOUNDS");
+        var options = ControllerOptions.LoadOptions();
+        var controller = new ImageController(options);
 
-        if (string.IsNullOrWhiteSpace(endpoint))
-        {
-            throw new InvalidOperationException("MATRIX_SDK_ENDPOINT environment variable is not set.");
-        }
-
-        if (string.IsNullOrWhiteSpace(bounds))
-        {
-            throw new InvalidOperationException("MATRIX_SDK_BOUNDS environment variable is not set.");
-        }
-
-        var endPoint = IPEndPoint.Parse(endpoint);
-
-        var width = int.Parse(bounds.Split('x')[0]);
-        var height = int.Parse(bounds.Split('x')[1]);
-
-        var imageBounds = new ImageBounds(width, height);
-        var controller = new ImageController(endPoint);
-
-        return new ImageBuffer(new ImageBufferHandle(imageBounds), controller);
+        return new ImageBuffer(new ImageBufferHandle(options), controller);
     }
 
     public unsafe ImageBuffer(ImageBufferHandle bufferHandle, ImageController controller)

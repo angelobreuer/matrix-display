@@ -17,8 +17,12 @@ public sealed class ImageBufferHandle : IDisposable
     private ulong _version;
     private nint _buffer;
 
-    public unsafe ImageBufferHandle(ImageBounds bounds)
+    public unsafe ImageBufferHandle(ControllerOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options);
+
+        var bounds = new ImageBounds(options.Width, options.Height);
+
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(bounds.Width, 0);
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(bounds.Height, 0);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(bounds.Width, 4096);
@@ -31,7 +35,7 @@ public sealed class ImageBufferHandle : IDisposable
             size += 8;
 
             _memoryMappedFile = MemoryMappedFile.CreateOrOpen(
-                mapName: "matrix-sdk",
+                mapName: $"matrix-sdk-{options.Host.Replace('.', '-')}-{options.Port}",
                 capacity: size,
                 access: MemoryMappedFileAccess.ReadWrite,
                 options: MemoryMappedFileOptions.None,

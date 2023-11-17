@@ -8,15 +8,38 @@ using System.Net.Sockets;
 
 public sealed class ImageController : IDisposable
 {
+    private readonly Func<int, int, int, int, int> _transform;
     private readonly IPEndPoint _destinationEndPoint;
     private byte[]? _sendBuffer;
     private Socket? _socket;
     private ulong _sequenceNumber;
 
-    public ImageController(IPEndPoint destinationEndPoint)
+    public ImageController(ControllerOptions options)
     {
-        _destinationEndPoint = destinationEndPoint;
+        ArgumentNullException.ThrowIfNull(options);
+
+        static int NoTransform(int x, int y, int width, int height)
+            => (y * width) + x;
+
+        static int HorizontalMirror(int x, int y, int width, int height)
+            => (y * width) + (width - x - 1);
+
+        static int VerticalMirror(int x, int y, int width, int height)
+            => ((height - y - 1) * width) + x;
+
+        static int HorizontalVerticalMirror(int x, int y, int width, int height)
+            => ((height - y - 1) * width) + (width - x - 1);
+
+        _destinationEndPoint = new IPEndPoint(IPAddress.Parse(options.Host), options.Port);
         _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+        _transform = options.MirroringOption switch
+        {
+            ImageMirroringOption.Horizontal => HorizontalMirror,
+            ImageMirroringOption.Vertical => VerticalMirror,
+            ImageMirroringOption.HorizontalVertical => HorizontalVerticalMirror,
+            _ => NoTransform,
+        };
     }
 
     public void Send(ReadOnlySpan<Color> colors, ImageBounds bounds)
@@ -51,21 +74,13 @@ public sealed class ImageController : IDisposable
             destination: sendBuffer[6..],
             value: Interlocked.Increment(ref _sequenceNumber));
 
-#pragma warning disable CS8321
-        int NoTransform(int x, int y) => (y * bounds.Width) + x;
-        int HorizontalMirror(int x, int y) => (y * bounds.Width) + (bounds.Width - x - 1);
-        int VerticalMirror(int x, int y) => ((bounds.Width - y - 1) * bounds.Width) + x;
-        int HorizontalVerticalMirror(int x, int y) => ((bounds.Width - y - 1) * bounds.Width) + (bounds.Width - x - 1);
-#pragma warning restore CS8321
-
-        var transform = HorizontalMirror;
         var sendIndex = 14;
 
         for (var y = 0; y < bounds.Height; y++)
         {
             for (var x = 0; x < bounds.Width; x++)
             {
-                var color = colors[transform(x, y)];
+                var color = colors[_transform(x, y, bounds.Width, bounds.Height)];
 
                 sendBuffer[sendIndex++] = color.R;
                 sendBuffer[sendIndex++] = color.G;
