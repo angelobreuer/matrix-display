@@ -1,0 +1,6 @@
+reserved, data, 0xfe,     ,     16k
+otadata,  data, ota,      ,      8k
+nvs,      data, nvs,      ,    128K
+phy_init, data, phy,      ,      4k                   
+ota_0,    app,  ota_0,    ,   1500K
+ota_1,    app,  ota_1,    ,   1500K

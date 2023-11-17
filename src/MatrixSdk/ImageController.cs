@@ -50,7 +50,7 @@ public sealed class ImageController : IDisposable
         for (var index = 0; index < colors.Length; index++)
         {
             var color = colors[index];
-            var sendIndex = index * 3;
+            var sendIndex = (index * 3) + 14;
 
             sendBuffer[sendIndex] = color.R;
             sendBuffer[sendIndex + 1] = color.G;
