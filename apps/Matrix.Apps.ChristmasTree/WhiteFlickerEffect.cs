@@ -30,11 +30,9 @@ internal sealed class WhiteFlickerEffect : IEffect
                 {
                     data[Random.Shared.Next(data.Length)] = Color.White;
                 }
-
-                buffer.Commit();
             }
 
-            spinWait.SpinOnce();
+            buffer.Commit();
         }
     }
 }
