@@ -26,6 +26,9 @@ public sealed class ImageBuffer
 
         Rows = new ImageBufferRows(this);
         Columns = new ImageBufferColumns(this);
+
+        Colors.Clear();
+        Commit();
     }
 
     public unsafe Span<Color> Colors => new((void*)_handle.Buffer, _handle.Count);
@@ -79,6 +82,36 @@ public sealed class ImageBuffer
     }
 
     private int ComputeIndex(int x, int y) => (y * _handle.Bounds.Width) + x;
+
+    public ReadOnlyMemory<Color> Capture() => Colors.ToArray();
+
+    public void Restore(ReadOnlySpan<Color> colors) => colors.CopyTo(Colors);
+
+    public void Invert()
+    {
+        foreach (ref var color in Colors)
+        {
+            color = color with
+            {
+                R = (byte)(255 - color.R),
+                G = (byte)(255 - color.G),
+                B = (byte)(255 - color.B),
+            };
+        }
+    }
+
+    public void Threshold(byte value)
+    {
+        foreach (ref var color in Colors)
+        {
+            var thresholdValue = (byte)((color.R + color.G + color.B) / 3);
+
+            if (thresholdValue < value)
+            {
+                color = default;
+            }
+        }
+    }
 
     public void DrawImage(SKBitmap image)
     {

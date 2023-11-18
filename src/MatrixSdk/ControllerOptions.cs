@@ -43,9 +43,9 @@ public sealed class ControllerOptions
     [JsonPropertyName(nameof(Port))]
     public required int Port { get; init; }
 
-    [JsonPropertyName(nameof(MirroringOption))]
+    [JsonPropertyName(nameof(ImageMirroring))]
     [JsonConverter(typeof(JsonStringEnumConverter<ImageMirroringOption>))]
-    public ImageMirroringOption MirroringOption { get; init; }
+    public ImageMirroringOption ImageMirroring { get; init; }
 }
 
 [JsonSerializable(typeof(ControllerOptions))]

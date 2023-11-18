@@ -18,26 +18,30 @@ public sealed class ImageController : IDisposable
     {
         ArgumentNullException.ThrowIfNull(options);
 
-        static int NoTransform(int x, int y, int width, int height)
-            => (y * width) + x;
+        static int GetAlternatingX(int x, int y, int width) => y % 2 is 0 ? x : width - 1 - x;
 
-        static int HorizontalMirror(int x, int y, int width, int height)
-            => (y * width) + (width - x - 1);
+        static int NoTransform(int x, int y, int width, int height) => (y * width) + x;
+        static int HorizontalMirror(int x, int y, int width, int height) => (y * width) + (width - x - 1);
+        static int VerticalMirror(int x, int y, int width, int height) => ((height - y - 1) * width) + x;
+        static int HorizontalVerticalMirror(int x, int y, int width, int height) => ((height - y - 1) * width) + (width - x - 1);
 
-        static int VerticalMirror(int x, int y, int width, int height)
-            => ((height - y - 1) * width) + x;
-
-        static int HorizontalVerticalMirror(int x, int y, int width, int height)
-            => ((height - y - 1) * width) + (width - x - 1);
+        static int AlternatingNoTransform(int x, int y, int width, int height) => NoTransform(GetAlternatingX(x, y, width), y, width, height);
+        static int AlternatingHorizontalMirror(int x, int y, int width, int height) => HorizontalMirror(GetAlternatingX(x, y, width), y, width, height);
+        static int AlternatingVerticalMirror(int x, int y, int width, int height) => VerticalMirror(GetAlternatingX(x, y, width), y, width, height);
+        static int AlternatingHorizontalVerticalMirror(int x, int y, int width, int height) => HorizontalVerticalMirror(GetAlternatingX(x, y, width), y, width, height);
 
         _destinationEndPoint = new IPEndPoint(IPAddress.Parse(options.Host), options.Port);
         _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-        _transform = options.MirroringOption switch
+        _transform = options.ImageMirroring switch
         {
             ImageMirroringOption.Horizontal => HorizontalMirror,
             ImageMirroringOption.Vertical => VerticalMirror,
             ImageMirroringOption.HorizontalVertical => HorizontalVerticalMirror,
+            ImageMirroringOption.Alternating => AlternatingNoTransform,
+            ImageMirroringOption.AlternatingHorizontal => AlternatingHorizontalMirror,
+            ImageMirroringOption.AlternatingVertical => AlternatingVerticalMirror,
+            ImageMirroringOption.AlternatingHorizontalVertical => AlternatingHorizontalVerticalMirror,
             _ => NoTransform,
         };
     }
