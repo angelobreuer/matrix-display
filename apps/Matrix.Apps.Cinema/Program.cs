@@ -1,7 +1,12 @@
 ﻿using Matrix.Tools.Packager;
 using MatrixSdk;
 
-var playout = new PackagePlayout("rick.pak");
+var playout = new PackagePlayout("bad-apple.pak");
 var imageBuffer = ImageBuffer.Create();
 
-playout.Run(imageBuffer, 30, 1);
+while (playout.Next(imageBuffer))
+{
+    imageBuffer.Invert();
+    imageBuffer.Threshold(10);
+    imageBuffer.Commit();
+}

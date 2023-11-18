@@ -3,85 +3,91 @@
 using System;
 using System.Buffers.Binary;
 using System.IO.Compression;
+using System.Threading;
 using MatrixSdk;
 using SkiaSharp;
 
-public readonly record struct PackagePlayout
+public sealed class PackagePlayout
 {
+    private readonly byte[] _buffer;
     private readonly string _fileName;
+    private readonly GZipStream _stream;
+    private readonly int _intervalInMilliseconds;
+    private long _lastTickCount;
+    private long _delta;
 
-    public PackagePlayout(string fileName)
+    public PackagePlayout(string fileName, double framesPerSecond = 30, double timeScale = 1D)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 
+        _buffer = GC.AllocateUninitializedArray<byte>(4096);
         _fileName = fileName;
+
+        var fileStream = new FileStream(_fileName, FileMode.Open);
+        _stream = new GZipStream(fileStream, CompressionMode.Decompress, leaveOpen: false);
+
+        var interval = TimeSpan.FromSeconds(framesPerSecond / 1000D / timeScale);
+        _intervalInMilliseconds = (int)Math.Floor(interval.TotalMilliseconds);
+
+        _lastTickCount = Environment.TickCount64;
     }
 
-    public void Run(ImageBuffer imageBuffer, double framesPerSecond, double timeScale)
+    public bool Next(ImageBuffer imageBuffer)
     {
-        using var fileStream = new FileStream(_fileName, FileMode.Open);
-        using var gzipStream = new GZipStream(fileStream, CompressionMode.Decompress);
-
-        var lengthBuffer = GC.AllocateUninitializedArray<byte>(4);
-        var interval = TimeSpan.FromSeconds(framesPerSecond / 1000D / timeScale);
-        var intervalInMilliseconds = (int)Math.Floor(interval.TotalMilliseconds);
-
-        var lastTickCount = Environment.TickCount64;
-        var delta = 0L;
-
-        var frameBuffer = GC.AllocateUninitializedArray<byte>(16 * 1024);
-        var preparedFrame = default(SKBitmap?);
-
-        int ReadNext()
-        {
-            var bytesRead = gzipStream!.ReadAtLeast(lengthBuffer!, 4, throwOnEndOfStream: false);
-
-            if (bytesRead is < 4)
-            {
-                return 0;
-            }
-
-            var frameLength = BinaryPrimitives.ReadInt32LittleEndian(lengthBuffer);
-            gzipStream!.ReadExactly(frameBuffer.AsSpan(0, frameLength));
-            return frameLength;
-        }
-
         var spinWait = new SpinWait();
+        long framesToAdvance;
 
         while (true)
         {
             var currentTickCount = Environment.TickCount64;
-            delta += currentTickCount - lastTickCount;
-            lastTickCount = currentTickCount;
+            _delta += currentTickCount - _lastTickCount;
+            _lastTickCount = currentTickCount;
 
-            var (framesToAdvance, newDelta) = Math.DivRem(delta, intervalInMilliseconds);
-            delta = newDelta;
+            (framesToAdvance, _delta) = Math.DivRem(_delta, _intervalInMilliseconds);
 
-            if (framesToAdvance is 0)
+            if (framesToAdvance is not 0)
             {
-                spinWait.SpinOnce();
-                continue;
+                break;
             }
 
-            spinWait = new SpinWait();
-
-            int frameLength;
-            do
-            {
-                if ((frameLength = ReadNext()) is 0)
-                {
-                    return;
-                }
-            }
-            while (--framesToAdvance > 0);
-
-            using var originalImage = SKBitmap.Decode(frameBuffer.AsSpan(0, frameLength));
-
-            preparedFrame?.Dispose();
-            preparedFrame = originalImage;
-
-            imageBuffer.DrawImage(originalImage);
-            imageBuffer.Commit();
+            spinWait.SpinOnce();
         }
+
+        int frameLength;
+        do
+        {
+            if ((frameLength = ReadNext()) is 0)
+            {
+                return false;
+            }
+        }
+        while (--framesToAdvance > 0);
+
+        using var originalImage = SKBitmap.Decode(_buffer.AsSpan(0, frameLength));
+
+        imageBuffer.DrawImage(originalImage);
+
+        return true;
+    }
+
+    private int ReadNext()
+    {
+        var bytesRead = _stream!.ReadAtLeast(_buffer!.AsSpan(0, 4), 4);
+
+        if (bytesRead is 0)
+        {
+            return 0;
+        }
+
+        var frameLength = BinaryPrimitives.ReadInt32LittleEndian(_buffer);
+
+        bytesRead = _stream!.ReadAtLeast(_buffer.AsSpan(0, frameLength), frameLength);
+
+        if (bytesRead is 0)
+        {
+            return 0;
+        }
+
+        return frameLength;
     }
 }
