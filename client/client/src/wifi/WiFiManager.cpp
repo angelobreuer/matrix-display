@@ -45,7 +45,8 @@ void WiFiManager::Connect() {
       WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &DoHandleDisconnect, this));
   ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP,
                                              &DoHandleStationGotIp, this));
-  ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
+  ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_FLASH));
+  ESP_ERROR_CHECK(esp_netif_set_hostname(_networkInterface, WIFI_HOSTNAME));
 
   wifi_config_t wifiConfiguration;
 

@@ -9,6 +9,7 @@
 #include "nvs_flash.h"
 #include <string.h>
 #include <sys/param.h>
+#include <wifi/WiFiConfig.hpp>
 #include <wifi/WiFiManager.hpp>
 
 #include "lwip/err.h"
@@ -55,12 +56,17 @@ struct UdpServerSocket {
   int socketHandle;
 };
 
+void self_test(led_strip_handle_t handle, std::uint8_t r, std::uint8_t g,
+               std::uint8_t b) {
+  for (int index = 0; index < LedCount; index++) {
+    ESP_ERROR_CHECK(led_strip_set_pixel(handle, index, r, g, b));
+  }
+
+  ESP_ERROR_CHECK(led_strip_refresh(handle));
+  vTaskDelay(500 / portTICK_PERIOD_MS);
+}
+
 extern "C" void app_main() {
-  auto wifiManager = WiFiManager::CreateDefault();
-
-  wifiManager->Connect();
-
-  constexpr const int LedCount = 13 * 11;
 
   led_strip_config_t ledConfiguration{
       .strip_gpio_num = 7,
@@ -73,7 +79,7 @@ extern "C" void app_main() {
   led_strip_rmt_config_t rmtConfiguration{
       .clk_src = rmt_clock_source_t::RMT_CLK_SRC_APB,
       .resolution_hz = 4 * 1000 * 1000,
-      .mem_block_symbols = 48,
+      .mem_block_symbols = 64,
       .flags = {.with_dma = false},
   };
 
@@ -81,7 +87,28 @@ extern "C" void app_main() {
   ESP_ERROR_CHECK(
       led_strip_new_rmt_device(&ledConfiguration, &rmtConfiguration, &handle));
 
+  self_test(handle, 255, 0, 0);
+  self_test(handle, 0, 255, 0);
+  self_test(handle, 0, 0, 255);
+  self_test(handle, 255, 255, 255);
+
+  for (int index = 0; index < LedCount; index++) {
+    auto step = index % 3;
+    ESP_ERROR_CHECK(led_strip_set_pixel(handle, index, step == 0 ? 255 : 0,
+                                        step == 1 ? 255 : 0,
+                                        step == 2 ? 255 : 0));
+  }
+
+  ESP_ERROR_CHECK(led_strip_refresh(handle));
+
+  vTaskDelay(1500 / portTICK_PERIOD_MS);
+  ESP_ERROR_CHECK(led_strip_clear(handle));
+
   std::array<std::uint8_t, 1024> receiveBuffer{};
+
+  auto wifiManager = WiFiManager::CreateDefault();
+
+  wifiManager->Connect();
 
   while (1) {
     UdpServerSocket serverSocket;
@@ -132,12 +159,17 @@ extern "C" void app_main() {
 
       lastSequenceNumber = sequenceNumber;
 
-      auto pixelData = &receiveBuffer.data()[12];
+      auto pixelData = &receiveBuffer.data()[14];
 
-      for (int index = 0; index < LedCount * 3; index += 3) {
-        ESP_ERROR_CHECK_WITHOUT_ABORT(led_strip_set_pixel(
-            handle, index / 3, pixelData[index * 3], pixelData[index * 3 + 1],
-            pixelData[index * 3 + 2]));
+      for (int index = 0; index < LedCount; index++) {
+        auto red = pixelData[0];
+        auto green = pixelData[1];
+        auto blue = pixelData[2];
+
+        pixelData += 3;
+
+        ESP_ERROR_CHECK_WITHOUT_ABORT(
+            led_strip_set_pixel(handle, index, red, green, blue));
       }
 
       ESP_ERROR_CHECK(led_strip_refresh(handle));
