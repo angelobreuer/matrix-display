@@ -1,13 +1,8 @@
 <Project>
-  <PropertyGroup>
-      <OutputType>Exe</OutputType>
-      <TargetFramework>net8.0</TargetFramework>
-      <ImplicitUsings>enable</ImplicitUsings>
-      <Nullable>enable</Nullable>
-      <ArtifactsPath>$(MSBuildThisFileDirectory)/../artifacts</ArtifactsPath>
-  </PropertyGroup>
-
   <ItemGroup>
         <ProjectReference Include="..\..\src\MatrixSdk\MatrixSdk.csproj" />
     </ItemGroup>
+    
+    <!-- Include parent Directory.Build.props -->
+    <Import Project="..\Directory.Build.props" />
 </Project>

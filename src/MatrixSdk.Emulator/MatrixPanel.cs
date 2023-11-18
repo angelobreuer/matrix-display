@@ -13,12 +13,12 @@ internal sealed class MatrixPanel : Panel
     private ulong _lastVersion;
     private bool _resized;
 
-    public MatrixPanel(ImageBounds bounds)
+    public MatrixPanel()
     {
         _timer = new Timer { Enabled = true, Interval = 1, };
         _timer.Tick += (_, _) => Run();
 
-        _bufferHandle = new ImageBufferHandle(bounds);
+        _bufferHandle = new ImageBufferHandle(ControllerOptions.LoadOptions());
     }
 
     private void Run()

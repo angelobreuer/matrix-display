@@ -4,9 +4,9 @@ public sealed class MainForm : Form
 {
     private readonly MatrixPanel _matrixPanel;
 
-    public MainForm(int width, int height)
+    public MainForm()
     {
-        _matrixPanel = new MatrixPanel(new ImageBounds(width, height)) { Dock = DockStyle.Fill, };
+        _matrixPanel = new MatrixPanel { Dock = DockStyle.Fill, };
 
         Controls.Add(_matrixPanel);
 

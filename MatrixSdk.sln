@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.Apps.Tetris", "apps\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.Apps.TicTacToe", "apps\Matrix.Apps.TicTacToe\Matrix.Apps.TicTacToe.csproj", "{5CCD41DC-9A13-485E-944C-405A94A329C2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.Apps.Test", "apps\Matrix.Apps.Test\Matrix.Apps.Test.csproj", "{3E18B0D7-BC23-434E-B3AC-F3868D152159}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.Apps.Text", "apps\Matrix.Apps.Text\Matrix.Apps.Text.csproj", "{96B80957-DF73-4697-8FE2-C36A8445B1C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{5CCD41DC-9A13-485E-944C-405A94A329C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CCD41DC-9A13-485E-944C-405A94A329C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CCD41DC-9A13-485E-944C-405A94A329C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E18B0D7-BC23-434E-B3AC-F3868D152159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E18B0D7-BC23-434E-B3AC-F3868D152159}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E18B0D7-BC23-434E-B3AC-F3868D152159}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E18B0D7-BC23-434E-B3AC-F3868D152159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B80957-DF73-4697-8FE2-C36A8445B1C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B80957-DF73-4697-8FE2-C36A8445B1C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B80957-DF73-4697-8FE2-C36A8445B1C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B80957-DF73-4697-8FE2-C36A8445B1C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

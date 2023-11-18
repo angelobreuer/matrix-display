@@ -1,3 +1,3 @@
 ﻿using MatrixSdk.Emulator;
 
-Application.Run(new MainForm(13, 11));
+Application.Run(new MainForm());
