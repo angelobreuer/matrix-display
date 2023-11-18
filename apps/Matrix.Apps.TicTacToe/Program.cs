@@ -97,23 +97,49 @@ void Render(bool blink)
     }
 }
 
-void DrawLine(double angleInDegrees, int offsetX, int offsetY)
+void ShowWinner(double angleInDegrees, int offsetX, int offsetY, char winner)
 {
     var angleInRad = angleInDegrees * Math.PI / 180;
     var (sin, cos) = Math.SinCos(angleInRad);
 
     var length = 8;
 
-    var x = (-cos * length) + offsetX;
-    var y = (-sin * length) + offsetY + 1;
+    var startX = (-cos * length) + offsetX;
+    var startY = (-sin * length) + offsetY + 1;
 
-    for (var index = 0; index < length * 2; index++)
+    var x = startX;
+    var y = startY;
+
+    var capture = buffer.Capture();
+
+    for (int i = 0; i < 3; i++)
     {
-        x += cos;
-        y += sin;
+        for (var index = 0; index < length * 2; index++)
+        {
+            x += cos;
+            y += sin;
 
-        buffer[(int)Math.Round(x), (int)Math.Round(y)] = new Color(0xFF, 0xFF, 0);
+            buffer[(int)Math.Round(x), (int)Math.Round(y)] = new Color(0xFF, 0xFF, 0);
+        }
+
+        x = startX;
+        y = startY;
+
+        buffer.Commit();
+        Thread.Sleep(200);
+
+        buffer.Restore(capture.Span);
+        buffer.Commit();
+
+        Thread.Sleep(200);
     }
+
+    var winnerColor = winner is 'X' ? red : blue;
+
+    buffer.Colors.Fill(winnerColor);
+    buffer.Commit();
+
+    Thread.Sleep(1000);
 }
 
 bool DetectWinner()
@@ -124,7 +150,7 @@ bool DetectWinner()
         if (placements[column, 0] is not (char)0 && placements[column, 0] == placements[column, 1] && placements[column, 1] == placements[column, 2])
         {
             var (offsetX, offsetY) = GetCenter(column, 0);
-            DrawLine(90, offsetX, offsetY);
+            ShowWinner(90, offsetX, offsetY, placements[column, 0]);
             return true;
         }
     }
@@ -135,7 +161,7 @@ bool DetectWinner()
         if (placements[0, row] is not (char)0 && placements[0, row] == placements[1, row] && placements[1, row] == placements[2, row])
         {
             var (offsetX, offsetY) = GetCenter(0, row);
-            DrawLine(180, offsetX + 3, offsetY - 1);
+            ShowWinner(180, offsetX + 3, offsetY - 1, placements[0, row]);
             return true;
         }
     }
@@ -143,13 +169,13 @@ bool DetectWinner()
     // Check winner across diagonal
     if (placements[0, 0] is not (char)0 && placements[0, 0] == placements[1, 1] && placements[1, 1] == placements[2, 2])
     {
-        DrawLine(45, size / 2, (size / 2) - 2);
+        ShowWinner(45, size / 2, (size / 2) - 2, placements[0, 0]);
         return true;
     }
 
     if (placements[0, 2] is not (char)0 && placements[0, 2] == placements[1, 1] && placements[1, 1] == placements[2, 0])
     {
-        DrawLine(-45, size / 2, size / 2);
+        ShowWinner(-45, size / 2, size / 2, placements[0, 2]);
         return true;
     }
 
@@ -220,7 +246,6 @@ while (true)
         if (DetectWinner())
         {
             buffer.Commit();
-            Thread.Sleep(3000);
             break;
         }
 
