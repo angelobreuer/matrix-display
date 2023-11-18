@@ -38,6 +38,11 @@ bool CheckForCompleted()
     {
         foreach (var (pointX, pointY) in block.Points)
         {
+            if (pointY + block.Y < 0)
+            {
+                Environment.Exit(0); // Game over
+            }
+
             if (pointY + block.Y < buffer.Height)
             {
                 list[pointY + block.Y] &= ~(1U << (pointX + block.X));
@@ -157,7 +162,6 @@ buffer.Clear();
 
 while (true)
 {
-
     var previousX = currentBlock.X;
     var previousY = currentBlock.Y;
 
