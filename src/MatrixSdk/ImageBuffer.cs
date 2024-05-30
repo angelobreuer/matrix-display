@@ -77,8 +77,11 @@ public sealed class ImageBuffer
 
     public void Commit()
     {
-        _controller.Send(Colors, Bounds);
-        _handle.IncrementVersion();
+        for (int index = 0; index < 20; index++)
+        {
+            _controller.Send(Colors, Bounds);
+            _handle.IncrementVersion();
+        }
     }
 
     private int ComputeIndex(int x, int y) => (y * _handle.Bounds.Width) + x;

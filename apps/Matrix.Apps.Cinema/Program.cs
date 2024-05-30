@@ -6,7 +6,7 @@ var imageBuffer = ImageBuffer.Create();
 
 while (playout.Next(imageBuffer))
 {
-    imageBuffer.Invert();
-    imageBuffer.Threshold(10);
+     imageBuffer.Invert();
+     imageBuffer.Threshold(10);
     imageBuffer.Commit();
 }

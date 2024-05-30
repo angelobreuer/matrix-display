@@ -2,17 +2,15 @@
 
 var buffer = ImageBuffer.Create();
 
-void TestColor(Color color)
+for (int index = 0; index < buffer.Width; index++)
 {
-    buffer.Colors.Fill(color);
-    buffer.Commit();
+    for (int j = 0; j < index; j++)
+    {
+        buffer[j, 0] = Color.Red;
+    }
 
-    Console.WriteLine($"Testing color {color}");
-    Console.WriteLine("Press any key to continue...");
-    Console.ReadKey();
+    buffer.Commit();
+    Thread.Sleep(100);
 }
 
-TestColor(new Color(255, 0, 0));
-TestColor(new Color(0, 255, 0));
-TestColor(new Color(0, 0, 255));
-TestColor(new Color(255, 255, 255));
+buffer.Commit();

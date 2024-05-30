@@ -1,7 +1,7 @@
 ﻿using MatrixSdk;
 using SkiaSharp;
 
-var buffer = ImageBuffer.Create();
+-var buffer = ImageBuffer.Create();
 using var bitmap = new SKBitmap(buffer.Width, buffer.Height);
 
 using var canvas = new SKCanvas(bitmap);
